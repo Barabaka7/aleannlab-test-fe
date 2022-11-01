@@ -15,8 +15,6 @@ function App() {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const jobPreviewOnPage = 15;
-
   const setJobs = async () => {
     const allFetchedJobsObj = await fetchAllJobs();
     setAllJobs(allFetchedJobsObj);
@@ -30,17 +28,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to={`/1`} replace />} />
-        <Route
-          path="/:page"
-          element={
-            <JobBoard
-              allJobs={allJobs.filter(
-                (_, idx) =>
-                  idx >= currentPage - 1 && idx < currentPage * jobPreviewOnPage
-              )}
-            />
-          }
-        />
+        <Route path="/:currentPage" element={<JobBoard allJobs={allJobs} />} />
         <Route path="/job/:id" element={<JobDetailed />} />
       </Routes>
     </Router>

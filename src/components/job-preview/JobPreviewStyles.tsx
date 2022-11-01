@@ -11,6 +11,10 @@ export const JobPreviewWrapper = styled.div`
   background-color: white;
   border-radius: 4px;
   box-shadow: 1px 1px 6px -1px #9b9b9b;
+  :hover {
+    transform: scale(1.03);
+    transition: ease-in 0.2s;
+  }
 `;
 
 export const CompanyLogoSection = styled.div`
@@ -39,6 +43,7 @@ export const TextDark = styled.span`
   color: #3a4562;
   font-size: 20px;
   letter-spacing: -0.625px;
+  max-height: 50%;
 `;
 
 export const TextSecondary = styled.span`

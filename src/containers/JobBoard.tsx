@@ -9,7 +9,7 @@ interface JobBoardProps {
 
 export const JobBoard = ({ allJobs }: JobBoardProps) => {
   const Names = allJobs.map((job, idx) => {
-    const jobPreviewData = {
+    let jobPreviewData = {
       logo: job.pictures[0],
       jobName: job.name,
       title: job.title,

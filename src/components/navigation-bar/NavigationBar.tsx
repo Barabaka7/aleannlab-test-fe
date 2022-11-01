@@ -1,3 +1,5 @@
+import { NavigationBarWrapper } from "./NavigationBarStyles";
+
 export const NavigationBar = () => {
-  return <>Navigation</>;
+  return <NavigationBarWrapper>Navigation</NavigationBarWrapper>;
 };

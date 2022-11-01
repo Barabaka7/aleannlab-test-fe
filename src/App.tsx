@@ -48,3 +48,7 @@ function App() {
 }
 
 export default App;
+
+// TODO: different Images
+
+// TODO: save bookmark icon!

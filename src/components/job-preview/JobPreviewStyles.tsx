@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import "font-proxima-nova/style.css";
 
 export const JobPreviewWrapper = styled.div`
+  cursor: pointer;
   font-family: "Proxima Nova Rg";
   width: 80%;
   height: 150px;
@@ -87,14 +88,10 @@ export const BookmarkAndDateWrapper = styled.div`
   color: #878d9d;
 
   & svg {
-    color: #70778b;
-    fill: #ffffff;
-    stroke: #70778b;
-    stroke-width: 0.4;
+    fill: #70778b;
   }
 
   & svg:hover {
-    /* color: #ff0000; */
     fill: #ff0000;
   }
 `;

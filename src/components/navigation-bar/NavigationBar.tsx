@@ -3,6 +3,7 @@ import {
   BackAndForwardButton,
   PageButtons,
   VerticalLine,
+  PageButton,
 } from "./NavigationBarStyles";
 import {
   MdOutlineArrowBackIosNew,
@@ -22,27 +23,34 @@ export const NavigationBar = ({
 }: NavigationBarProps) => {
   let navigate = useNavigate();
 
-  let disabledBackButton = currentPage === 1 ? true : false;
-  let disabledForwardButton = currentPage === numberOfPages ? true : false;
-
-  console.log(`currentPage: ${currentPage}`);
-  console.log(`disabledBackButton: ${disabledBackButton}`);
-  console.log(`disabledForwardButton: ${disabledForwardButton}`);
+  let pageButtons = [];
+  if (numberOfPages <= 6) {
+    for (let b = 1; b <= numberOfPages; b++) {
+      let newButton = (
+        <PageButton key={b} onClick={() => navigate(`/${b}`)}>
+          {b}
+        </PageButton>
+      );
+      pageButtons.push(newButton);
+    }
+  } else {
+    //TODO: Implement case for Navigator with many pages
+  }
 
   return (
     <NavigationBarWrapper>
       <IconContext.Provider value={{ size: "20px" }}>
         <BackAndForwardButton
-          disabled={disabledBackButton}
+          disabled={currentPage === 1}
           onClick={() => navigate(`/${currentPage - 1}`)}
         >
           <MdOutlineArrowBackIosNew />
         </BackAndForwardButton>
         <VerticalLine />
-        <PageButtons />
+        <PageButtons>{pageButtons}</PageButtons>
         <VerticalLine />
         <BackAndForwardButton
-          disabled={disabledForwardButton}
+          disabled={currentPage === numberOfPages}
           onClick={() => navigate(`/${currentPage + 1}`)}
         >
           <MdOutlineArrowForwardIos />

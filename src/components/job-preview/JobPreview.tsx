@@ -11,8 +11,9 @@ import {
 
 import { IconContext } from "react-icons";
 import { FaStar } from "react-icons/fa";
-import { BsFillBookmarkFill } from "react-icons/bs";
+import { FaRegBookmark } from "react-icons/fa";
 import { ImLocation } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 interface jobPreviewProps {
   jobPreviewData: {
@@ -21,10 +22,13 @@ interface jobPreviewProps {
     title: string;
     address: string;
     date: string;
+    jobId: string;
   };
 }
 
 export const JobPreview = ({ jobPreviewData }: jobPreviewProps) => {
+  let navigate = useNavigate();
+
   const renderingDate = new Date();
   const postingDate = new Date(jobPreviewData.date);
 
@@ -33,9 +37,12 @@ export const JobPreview = ({ jobPreviewData }: jobPreviewProps) => {
   );
 
   return (
-    <JobPreviewWrapper>
+    <JobPreviewWrapper onClick={() => navigate(`/job/${jobPreviewData.jobId}`)}>
       <CompanyLogoSection>
-        <Logo src={jobPreviewData.logo} alt="Company Logo" />
+        <Logo
+          src={`${jobPreviewData.logo}?t=${Date.now()}`}
+          alt="Company Logo"
+        />
       </CompanyLogoSection>
       <JobDescriptionWrapper>
         <TextDark>{jobPreviewData.title}</TextDark>
@@ -64,9 +71,15 @@ export const JobPreview = ({ jobPreviewData }: jobPreviewProps) => {
       </Rates>
 
       <BookmarkAndDateWrapper>
-        <div>
-          <BsFillBookmarkFill />
-        </div>
+        <IconContext.Provider
+          value={{
+            size: "20px",
+          }}
+        >
+          <div>
+            <FaRegBookmark />
+          </div>{" "}
+        </IconContext.Provider>
         {passingDays === 1
           ? `Posted ${passingDays} days ago`
           : `Posted ${passingDays} day ago`}

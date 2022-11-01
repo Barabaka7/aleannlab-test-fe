@@ -13,7 +13,6 @@ import { Job } from "./helpers/model";
 
 function App() {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const setJobs = async () => {
     const allFetchedJobsObj = await fetchAllJobs();

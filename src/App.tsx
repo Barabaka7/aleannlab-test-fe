@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { JobBoard } from "./containers/JobBoard";
-import { JobDetailed } from "./components/job-detailed/JobDetailed";
+import { JobDetailed } from "./components/job-detailes/JobDetailes";
 import { fetchAllJobs } from "./helpers/fetchingData";
 import { Job } from "./helpers/model";
 

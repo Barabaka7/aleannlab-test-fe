@@ -11,6 +11,9 @@ export const NavigationBarWrapper = styled.div`
   box-shadow: 1px 1px 6px -1px #9b9b9b;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 414px) {
+    width: 100%;
+  }
 `;
 
 export const BackAndForwardButton = styled.button`
@@ -26,12 +29,19 @@ export const BackAndForwardButton = styled.button`
   :hover:enabled {
     color: #5876c5;
   }
+
+  @media (max-width: 414px) {
+    display: none;
+  }
 `;
 
 export const VerticalLine = styled.div`
   height: 60%;
   width: 3px;
-  border-left: 1.3px solid #dee3ef; ;
+  border-left: 1.3px solid #dee3ef;
+  @media (max-width: 414px) {
+    display: none;
+  }
 `;
 
 export const PageButtons = styled.div`
@@ -40,6 +50,9 @@ export const PageButtons = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
+  @media (max-width: 414px) {
+    width: 100%;
+  }
 `;
 
 export const PageButton = styled.button`

@@ -23,12 +23,19 @@ function App() {
     setJobs();
   }, []);
 
+  const getJobById = (id: string) => {
+    return allJobs.find((j) => j.id === id);
+  };
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to={`/1`} replace />} />
         <Route path="/:currentPage" element={<JobBoard allJobs={allJobs} />} />
-        <Route path="/job/:id" element={<JobDetailed />} />
+        <Route
+          path="/job/:currentJob"
+          element={<JobDetailed getJobById={getJobById} />}
+        />
       </Routes>
     </Router>
   );

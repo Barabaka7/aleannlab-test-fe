@@ -7,6 +7,10 @@ import {
   TextSecondary,
   Rates,
   BookmarkAndDateWrapper,
+  DescriptionRatesDateWrapper,
+  RatesDateWrapper,
+  BookmarkWrapper,
+  StarWrapper,
 } from "./JobPreviewStyles";
 
 import { IconContext } from "react-icons";
@@ -44,46 +48,52 @@ export const JobPreview = ({ jobPreviewData }: jobPreviewProps) => {
           alt="Company Logo"
         />
       </CompanyLogoSection>
-      <JobDescriptionWrapper>
-        <TextDark>{jobPreviewData.title}</TextDark>
-        <TextSecondary>{jobPreviewData.jobName}</TextSecondary>
 
-        <IconContext.Provider
-          value={{
-            style: { marginRight: "3px" },
-            color: "#878D9D",
-            size: "15px",
-          }}
-        >
-          <TextSecondary>
-            <ImLocation /> {jobPreviewData.address}
-          </TextSecondary>
-        </IconContext.Provider>
-      </JobDescriptionWrapper>
-      <Rates>
-        <div>
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-        </div>
-      </Rates>
+      <DescriptionRatesDateWrapper>
+        <JobDescriptionWrapper>
+          <TextDark>{jobPreviewData.title}</TextDark>
+          <TextSecondary>{jobPreviewData.jobName}</TextSecondary>
 
-      <BookmarkAndDateWrapper>
-        <IconContext.Provider
-          value={{
-            size: "20px",
-          }}
-        >
-          <div>
-            <FaRegBookmark />
-          </div>{" "}
-        </IconContext.Provider>
-        {passingDays === 1
-          ? `Posted ${passingDays} days ago`
-          : `Posted ${passingDays} day ago`}
-      </BookmarkAndDateWrapper>
+          <IconContext.Provider
+            value={{
+              style: { marginRight: "3px" },
+              color: "#878D9D",
+              size: "15px",
+            }}
+          >
+            <TextSecondary>
+              <ImLocation /> {jobPreviewData.address}
+            </TextSecondary>
+          </IconContext.Provider>
+        </JobDescriptionWrapper>
+
+        <RatesDateWrapper>
+          <Rates>
+            <StarWrapper>
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
+            </StarWrapper>
+          </Rates>
+
+          <BookmarkAndDateWrapper>
+            <IconContext.Provider
+              value={{
+                size: "20px",
+              }}
+            >
+              <BookmarkWrapper>
+                <FaRegBookmark />
+              </BookmarkWrapper>{" "}
+            </IconContext.Provider>
+            {passingDays === 1
+              ? `Posted ${passingDays} days ago`
+              : `Posted ${passingDays} day ago`}
+          </BookmarkAndDateWrapper>
+        </RatesDateWrapper>
+      </DescriptionRatesDateWrapper>
     </JobPreviewWrapper>
   );
 };

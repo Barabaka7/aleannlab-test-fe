@@ -28,7 +28,7 @@ export const makeSomeStringMagic = (description: string | undefined) => {
     .map((ben, i) => {
       if (ben) {
         return i !== 0 ? `<li>${ben.trim()}</li>` : `${ben}:<ul>`;
-      }
+      } else return;
     })
     .join("");
   descriptionAdjusted =

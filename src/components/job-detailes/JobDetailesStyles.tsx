@@ -1,26 +1,8 @@
-import styled from "@emotion/styled";
+import styled from "@emotion/styled/macro";
 import "font-proxima-nova/style.css";
 import "@fontsource/roboto";
 
 const PROXIMA = "Proxima Nova Rg";
-
-export const BackButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 8px;
-  width: 213px;
-  height: 50px;
-  background: #d6d8dc;
-  border-radius: 8px;
-  text-transform: uppercase;
-  color: #3a4562;
-  font-weight: 600;
-  border: none;
-  font-size: 12px;
-  line-height: 16px;
-  cursor: pointer;
-`;
 
 export const JobDetailsDescriptionWrapper = styled.div`
   display: flex;
@@ -43,6 +25,7 @@ export const Header = styled.div`
   font-weight: 700;
   font-size: 28px;
   color: #3a4562;
+  display: inline-block;
 `;
 
 export const UtilitiesHeader = styled.div`
@@ -80,12 +63,60 @@ export const ApplyNowButton = styled.button`
   font-family: ${PROXIMA};
   margin-top: 30px;
   margin-bottom: 20px;
+  font-weight: 600;
   border: none;
   :hover {
     cursor: pointer;
-    color: red;
     transform: scale(1.01);
   }
+`;
+
+export const TitleDaysAndSalaryWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: auto auto;
+  margin-bottom: 15px;
+  column-gap: 15px;
+`;
+export const Title = styled.h3`
+  font-family: ${PROXIMA};
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  color: #3a4562;
+  letter-spacing: -0.75px;
+  margin: 5px 0;
+`;
+
+export const Salary = styled.div`
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  font-family: ${PROXIMA};
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 25px;
+  color: #3a4562;
+  & span {
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    margin-top: -5px;
+  }
+`;
+
+export const Days = styled.span`
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.5625px;
+  color: rgba(56, 65, 93, 0.355988);
+  font-stretch: 100;
 `;
 
 export const Description = styled.div`
@@ -151,8 +182,123 @@ export const AttachedImg = styled.img`
   height: auto;
 `;
 
+export const BackButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  width: 213px;
+  height: 50px;
+  background: #d6d8dc;
+  border-radius: 8px;
+  text-transform: uppercase;
+  color: #3a4562;
+  font-weight: 600;
+  border: none;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+  margin-left: -15%;
+  margin-top: 40px;
+  margin-bottom: 140px;
+  :hover {
+    transform: scale(1.02);
+  }
+`;
+
 export const ButtonTextWrapper = styled.div``;
 
-export const JobMap = styled.div``;
+export const JobContactsAndMapWrapper = styled.div`
+  height: 436px;
+  width: 25vw;
+  border-radius: 8px;
+  background: url("/images/Combined Shape.svg") no-repeat, #2a3047;
+  position: relative;
+  z-index: 10;
+  margin-top: 35px;
+`;
 
-export const JobDetailsWrapper = styled.div``;
+export const JobMap = styled.div`
+  width: 100%;
+  height: 50%;
+  border-radius: inherit;
+  z-index: 5;
+  position: relative;
+`;
+
+export const JobContactsWrapper = styled.div`
+  width: 100%;
+  height: 50%;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 25px 40px;
+  box-sizing: border-box;
+`;
+
+export const TextName = styled.h2`
+  font-weight: 700;
+  font-family: ${PROXIMA};
+  color: #e7eaf0;
+  font-size: 20px;
+  line-height: 25px;
+  margin-top: 0;
+`;
+
+export const TextAddress = styled.span`
+  font-weight: 400;
+  font-family: "Roboto";
+  color: #e8ebf3;
+  font-size: 16px;
+  line-height: 24px;
+`;
+
+export const JobDetailsWrapper = styled.div`
+  display: flex;
+  column-gap: 7%;
+
+  @media (max-width: 414px) {
+    width: 100%;
+    flex-direction: column;
+
+    ${JobDetailsDescriptionWrapper} {
+      padding: 0 10px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-left: 0;
+    }
+
+    ${TitleDaysAndSalaryWrapper} {
+      grid-template-columns: 40vw 50vw;
+      justify-content: space-between;
+    }
+
+    ${Title} {
+      grid-area: 1 / 1 / 2 / span 2;
+    }
+
+    ${Salary} {
+      grid-area: 2 / 2 / 2 / 3;
+      flex-direction: column-reverse;
+      margin-top: 0;
+      align-items: end;
+      width: 90%;
+    }
+
+    ${Days} {
+      grid-area: 2 / 1 / 2 / 2;
+      display: flex;
+      align-items: center;
+    }
+
+    ${HeaderWrapper} {
+      display: block;
+    }
+
+    ${Header} {
+      display: block;
+      width: 100%;
+    }
+  }
+`;

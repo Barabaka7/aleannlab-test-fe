@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { FaRegBookmark } from "react-icons/fa";
 import { BsFillShareFill } from "react-icons/bs";
+import { ImLocation } from "react-icons/im";
 import { makeSomeStringMagic } from "../../helpers/parseString";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { Map } from "../map/Map";
+
 import { Job } from "../../helpers/model";
 import {
   BackButton,
   JobDetailsWrapper,
   JobDetailsDescriptionWrapper,
-  JobMap,
+  JobContactsAndMapWrapper,
   HeaderWrapper,
   Header,
   UtilitiesHeader,
@@ -22,7 +25,17 @@ import {
   AdditionalInfoBlockEmploymentType,
   AdditionalInfoBlockBenefit,
   AttachedImg,
+  JobContactsWrapper,
+  JobMap,
+  TextAddress,
+  TextName,
+  Title,
+  Days,
+  Salary,
+  TitleDaysAndSalaryWrapper,
 } from "./JobDetailesStyles";
+import { convertDate } from "../../helpers/convertDateToDay";
+import { convertSalaryString } from "../../helpers/convertSalary";
 
 interface JobDetailedProps {
   getJobById: (arg: string) => Job | undefined;
@@ -34,10 +47,13 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
 
   const [jobDetailed, setJobDetailed] = useState<Job>();
 
+  let passingDays = convertDate(jobDetailed?.createdAt) as string;
+
   useEffect(() => {
     if (currentJob) {
       setJobDetailed(getJobById(currentJob));
     }
+    window.scrollTo(0, 0);
   }, [getJobById, currentJob]);
 
   return (
@@ -68,6 +84,19 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
 
         <ApplyNowButton>Apply now</ApplyNowButton>
 
+        <TitleDaysAndSalaryWrapper>
+          <Title>{jobDetailed?.title}</Title>
+          <Salary>
+            {convertSalaryString(jobDetailed?.salary)}
+            <span>Brutto, per year</span>
+          </Salary>
+          <Days>
+            {passingDays === "1"
+              ? `Posted ${passingDays} days ago`
+              : `Posted ${passingDays} day ago`}
+          </Days>
+        </TitleDaysAndSalaryWrapper>
+
         <Description>
           {makeSomeStringMagic(jobDetailed?.description)}
         </Description>
@@ -80,8 +109,8 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
         <AdditionalInfoInnerWrapper>
           <span>Employment type</span>
           <AdditionalInfoBlocksWrapper>
-            {jobDetailed?.employment_type.map((empl) => (
-              <AdditionalInfoBlockEmploymentType>
+            {jobDetailed?.employment_type.map((empl, i) => (
+              <AdditionalInfoBlockEmploymentType key={i}>
                 {empl}
               </AdditionalInfoBlockEmploymentType>
             ))}
@@ -89,8 +118,10 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
           <span>Benefits</span>
           <AdditionalInfoBlocksWrapper>
             {" "}
-            {jobDetailed?.benefits.map((ben) => (
-              <AdditionalInfoBlockBenefit>{ben}</AdditionalInfoBlockBenefit>
+            {jobDetailed?.benefits.map((ben, i) => (
+              <AdditionalInfoBlockBenefit key={i}>
+                {ben}
+              </AdditionalInfoBlockBenefit>
             ))}
           </AdditionalInfoBlocksWrapper>
         </AdditionalInfoInnerWrapper>
@@ -101,21 +132,40 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
 
         <AdditionalInfoBlocksWrapper>
           {jobDetailed?.pictures.map((pic, i) => {
-            let photo = `${pic}?t=${Date.now()}`;
-            return <AttachedImg src={photo} alt={`Company Photo ${i + 1}`} />;
+            let photo = `${pic}?t=${Date.now() * Math.random()}`;
+            return (
+              <AttachedImg key={i} src={photo} alt={`Company Photo ${i + 1}`} />
+            );
           })}
         </AdditionalInfoBlocksWrapper>
 
-        {/* <div>
-          <IconContext.Provider value={{ size: "25px" }}>
-            <BackButton onClick={() => navigate("/")}>
-              <MdOutlineArrowBackIosNew />
-              Return to job board
-            </BackButton>
-          </IconContext.Provider>
-        </div> */}
+        <IconContext.Provider value={{ size: "25px" }}>
+          <BackButton onClick={() => navigate("/")}>
+            <MdOutlineArrowBackIosNew />
+            Return to job board
+          </BackButton>
+        </IconContext.Provider>
       </JobDetailsDescriptionWrapper>
-      <JobMap></JobMap>
+      <JobContactsAndMapWrapper>
+        <JobContactsWrapper>
+          <TextName>{jobDetailed?.name}</TextName>
+          <TextAddress>
+            {" "}
+            <ImLocation />
+            {jobDetailed?.address}
+          </TextAddress>
+          <TextAddress>{jobDetailed?.phone},</TextAddress>
+          <TextAddress>{jobDetailed?.email}</TextAddress>
+        </JobContactsWrapper>
+        <JobMap>
+          <Map
+            coord={[
+              Number(jobDetailed?.location.long),
+              Number(jobDetailed?.location.lat),
+            ]}
+          />
+        </JobMap>
+      </JobContactsAndMapWrapper>
     </JobDetailsWrapper>
   );
 };

@@ -19,6 +19,8 @@ import { FaRegBookmark } from "react-icons/fa";
 import { ImLocation } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
+import { convertDate } from "../../helpers/convertDateToDay";
+
 interface jobPreviewProps {
   jobPreviewData: {
     logo: string;
@@ -33,12 +35,7 @@ interface jobPreviewProps {
 export const JobPreview = ({ jobPreviewData }: jobPreviewProps) => {
   let navigate = useNavigate();
 
-  const renderingDate = new Date();
-  const postingDate = new Date(jobPreviewData.date);
-
-  const passingDays = Math.floor(
-    (renderingDate.getTime() - postingDate.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const passingDays = convertDate(jobPreviewData.date);
 
   return (
     <JobPreviewWrapper onClick={() => navigate(`/job/${jobPreviewData.jobId}`)}>

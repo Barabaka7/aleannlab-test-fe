@@ -42,6 +42,9 @@ export const IconWithTextWrapper = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
+  & #star {
+    display: none;
+  }
   :hover {
     cursor: pointer;
     color: red;
@@ -137,6 +140,16 @@ export const Description = styled.div`
   }
 `;
 
+export const AddittionalInfoAndImagesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const AttachedImagesInnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const AdditionalInfoInnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,6 +158,9 @@ export const AdditionalInfoInnerWrapper = styled.div`
   font-weight: 400;
   font-size: 14px;
   margin-top: 15px;
+  & [id="AdditionalInfo"] {
+    margin-bottom: 15px;
+  }
 `;
 
 export const AdditionalInfoBlocksWrapper = styled.div`
@@ -206,15 +222,20 @@ export const BackButton = styled.button`
   }
 `;
 
-export const ButtonTextWrapper = styled.div``;
+export const JobHeaderContactsAndMapWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  & ${HeaderWrapper} {
+    display: none;
+  }
+`;
 
 export const JobContactsAndMapWrapper = styled.div`
   height: 436px;
   width: 25vw;
   border-radius: 8px;
   background: url("/images/Combined Shape.svg") no-repeat, #2a3047;
-  position: relative;
-  z-index: 10;
   margin-top: 35px;
 `;
 
@@ -222,8 +243,6 @@ export const JobMap = styled.div`
   width: 100%;
   height: 50%;
   border-radius: inherit;
-  z-index: 5;
-  position: relative;
 `;
 
 export const JobContactsWrapper = styled.div`
@@ -257,16 +276,42 @@ export const TextAddress = styled.span`
 export const JobDetailsWrapper = styled.div`
   display: flex;
   column-gap: 7%;
+  margin-bottom: 40px;
 
   @media (max-width: 414px) {
     width: 100%;
     flex-direction: column;
+    margin-top: 20px;
 
     ${JobDetailsDescriptionWrapper} {
       padding: 0 10px;
       width: 100%;
       box-sizing: border-box;
       margin-left: 0;
+      & > ${HeaderWrapper}:first-of-type {
+        border: none;
+        display: block;
+        margin-top: 0;
+      }
+      & ${UtilitiesHeader} {
+        width: 100%;
+        justify-content: start;
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding-top: 18px;
+        margin-top: 10px;
+        color: #38415d;
+        border-top: 1px solid #bcc0cb;
+        & ${IconWithTextWrapper} {
+          margin-right: 30px;
+          #star {
+            display: block;
+          }
+          #bookmark {
+            display: none;
+          }
+        }
+      }
     }
 
     ${TitleDaysAndSalaryWrapper} {
@@ -292,13 +337,52 @@ export const JobDetailsWrapper = styled.div`
       align-items: center;
     }
 
-    ${HeaderWrapper} {
-      display: block;
+    ${ApplyNowButton}#upperApplyButton {
+      display: none;
     }
 
-    ${Header} {
-      display: block;
+    ${ApplyNowButton}#lowerApplyButton {
+      margin: 0 auto;
+      margin-bottom: 50px;
+    }
+
+    ${Description} {
+      & ul {
+        margin-left: 10px;
+      }
+    }
+
+    ${AddittionalInfoAndImagesWrapper} {
+      flex-direction: column-reverse;
+    }
+
+    ${AdditionalInfoBlockEmploymentType} {
+      display: flex;
+      justify-content: end;
+      padding-right: 5%;
+    }
+
+    ${AdditionalInfoInnerWrapper} {
+      & > ${HeaderWrapper}:first-of-type {
+        width: 80%;
+      }
+    }
+
+    ${BackButton} {
+      display: none;
+    }
+
+    ${JobHeaderContactsAndMapWrapper} {
+      padding: 0 10px;
       width: 100%;
+      box-sizing: border-box;
+      & ${HeaderWrapper} {
+        display: flex;
+      }
+      & ${JobContactsAndMapWrapper} {
+        width: 100%;
+        margin-top: 25px;
+      }
     }
   }
 `;

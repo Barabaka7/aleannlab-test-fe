@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaRegBookmark, FaRegStar } from "react-icons/fa";
 import { BsFillShareFill } from "react-icons/bs";
 import { ImLocation } from "react-icons/im";
 import { makeSomeStringMagic } from "../../helpers/parseString";
@@ -13,6 +13,7 @@ import {
   BackButton,
   JobDetailsWrapper,
   JobDetailsDescriptionWrapper,
+  JobHeaderContactsAndMapWrapper,
   JobContactsAndMapWrapper,
   HeaderWrapper,
   Header,
@@ -33,6 +34,8 @@ import {
   Days,
   Salary,
   TitleDaysAndSalaryWrapper,
+  AddittionalInfoAndImagesWrapper,
+  AttachedImagesInnerWrapper,
 } from "./JobDetailesStyles";
 import { convertDate } from "../../helpers/convertDateToDay";
 import { convertSalaryString } from "../../helpers/convertSalary";
@@ -69,7 +72,7 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
               }}
             >
               <IconWithTextWrapper>
-                <FaRegBookmark />{" "}
+                <FaRegBookmark id="bookmark" /> <FaRegStar id="star" />
                 <span style={{ marginLeft: "10px", whiteSpace: "nowrap" }}>
                   Save to my list
                 </span>
@@ -82,7 +85,7 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
           </UtilitiesHeader>
         </HeaderWrapper>
 
-        <ApplyNowButton>Apply now</ApplyNowButton>
+        <ApplyNowButton id="upperApplyButton">Apply now</ApplyNowButton>
 
         <TitleDaysAndSalaryWrapper>
           <Title>{jobDetailed?.title}</Title>
@@ -101,43 +104,49 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
           {makeSomeStringMagic(jobDetailed?.description)}
         </Description>
 
-        <ApplyNowButton>Apply now</ApplyNowButton>
+        <ApplyNowButton id="lowerApplyButton">Apply now</ApplyNowButton>
+        <AddittionalInfoAndImagesWrapper>
+          <AdditionalInfoInnerWrapper>
+            <HeaderWrapper id="AdditionalInfo">
+              <Header>Additional info</Header>
+            </HeaderWrapper>
+            <span>Employment type</span>
+            <AdditionalInfoBlocksWrapper>
+              {jobDetailed?.employment_type.map((empl, i) => (
+                <AdditionalInfoBlockEmploymentType key={i}>
+                  {empl}
+                </AdditionalInfoBlockEmploymentType>
+              ))}
+            </AdditionalInfoBlocksWrapper>
+            <span>Benefits</span>
+            <AdditionalInfoBlocksWrapper>
+              {" "}
+              {jobDetailed?.benefits.map((ben, i) => (
+                <AdditionalInfoBlockBenefit key={i}>
+                  {ben}
+                </AdditionalInfoBlockBenefit>
+              ))}
+            </AdditionalInfoBlocksWrapper>
+          </AdditionalInfoInnerWrapper>
 
-        <HeaderWrapper>
-          <Header>Additional info</Header>
-        </HeaderWrapper>
-        <AdditionalInfoInnerWrapper>
-          <span>Employment type</span>
-          <AdditionalInfoBlocksWrapper>
-            {jobDetailed?.employment_type.map((empl, i) => (
-              <AdditionalInfoBlockEmploymentType key={i}>
-                {empl}
-              </AdditionalInfoBlockEmploymentType>
-            ))}
-          </AdditionalInfoBlocksWrapper>
-          <span>Benefits</span>
-          <AdditionalInfoBlocksWrapper>
-            {" "}
-            {jobDetailed?.benefits.map((ben, i) => (
-              <AdditionalInfoBlockBenefit key={i}>
-                {ben}
-              </AdditionalInfoBlockBenefit>
-            ))}
-          </AdditionalInfoBlocksWrapper>
-        </AdditionalInfoInnerWrapper>
-
-        <HeaderWrapper>
-          <Header>Attached images</Header>
-        </HeaderWrapper>
-
-        <AdditionalInfoBlocksWrapper>
-          {jobDetailed?.pictures.map((pic, i) => {
-            let photo = `${pic}?t=${Date.now() * Math.random()}`;
-            return (
-              <AttachedImg key={i} src={photo} alt={`Company Photo ${i + 1}`} />
-            );
-          })}
-        </AdditionalInfoBlocksWrapper>
+          <AttachedImagesInnerWrapper>
+            <HeaderWrapper>
+              <Header>Attached images</Header>
+            </HeaderWrapper>
+            <AdditionalInfoBlocksWrapper>
+              {jobDetailed?.pictures.map((pic, i) => {
+                let photo = `${pic}?t=${Date.now() * Math.random()}`;
+                return (
+                  <AttachedImg
+                    key={i}
+                    src={photo}
+                    alt={`Company Photo ${i + 1}`}
+                  />
+                );
+              })}
+            </AdditionalInfoBlocksWrapper>
+          </AttachedImagesInnerWrapper>
+        </AddittionalInfoAndImagesWrapper>
 
         <IconContext.Provider value={{ size: "25px" }}>
           <BackButton onClick={() => navigate("/")}>
@@ -146,26 +155,32 @@ export const JobDetailed = ({ getJobById }: JobDetailedProps) => {
           </BackButton>
         </IconContext.Provider>
       </JobDetailsDescriptionWrapper>
-      <JobContactsAndMapWrapper>
-        <JobContactsWrapper>
-          <TextName>{jobDetailed?.name}</TextName>
-          <TextAddress>
-            {" "}
-            <ImLocation />
-            {jobDetailed?.address}
-          </TextAddress>
-          <TextAddress>{jobDetailed?.phone},</TextAddress>
-          <TextAddress>{jobDetailed?.email}</TextAddress>
-        </JobContactsWrapper>
-        <JobMap>
-          <Map
-            coord={[
-              Number(jobDetailed?.location.long),
-              Number(jobDetailed?.location.lat),
-            ]}
-          />
-        </JobMap>
-      </JobContactsAndMapWrapper>
+
+      <JobHeaderContactsAndMapWrapper>
+        <HeaderWrapper>
+          <Header>Contacts</Header>
+        </HeaderWrapper>
+        <JobContactsAndMapWrapper>
+          <JobContactsWrapper>
+            <TextName>{jobDetailed?.name}</TextName>
+            <TextAddress>
+              {" "}
+              <ImLocation />
+              {jobDetailed?.address}
+            </TextAddress>
+            <TextAddress>{jobDetailed?.phone},</TextAddress>
+            <TextAddress>{jobDetailed?.email}</TextAddress>
+          </JobContactsWrapper>
+          <JobMap>
+            <Map
+              coord={[
+                Number(jobDetailed?.location.long),
+                Number(jobDetailed?.location.lat),
+              ]}
+            />
+          </JobMap>
+        </JobContactsAndMapWrapper>
+      </JobHeaderContactsAndMapWrapper>
     </JobDetailsWrapper>
   );
 };

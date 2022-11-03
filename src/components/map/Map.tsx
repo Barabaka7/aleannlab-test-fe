@@ -43,7 +43,6 @@ export const Map = ({ coord }: MapProps) => {
   useEffect(() => {
     if (coord[0]) {
       if (coord[0] === -81.197354) {
-        console.log(Kyiv.current as [number, number]);
         setCoordinates(Kyiv.current as [number, number]);
       } else {
         setCoordinates(coord);
@@ -54,7 +53,6 @@ export const Map = ({ coord }: MapProps) => {
   useEffect(() => {
     if (map) {
       map.setCenter(coordinates);
-      console.log(`coordinates ${coordinates}`);
       new mapboxgl.Marker({
         color: "#D8D8D8",
       })

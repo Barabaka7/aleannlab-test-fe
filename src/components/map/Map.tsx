@@ -16,6 +16,8 @@ export const Map = ({ coord }: MapProps) => {
 
   const [map, setMap] = useState<mapboxgl.Map>();
 
+  const Kyiv = useRef([30.523333, 50.450001]);
+
   const mapNode = useRef(null);
 
   useEffect(() => {
@@ -30,12 +32,6 @@ export const Map = ({ coord }: MapProps) => {
       zoom: 9,
     });
 
-    new mapboxgl.Marker({
-      color: "#D8D8D8",
-    })
-      .setLngLat(coordinates)
-      .addTo(mapboxMap);
-
     setMap(mapboxMap);
 
     return () => {
@@ -46,13 +42,19 @@ export const Map = ({ coord }: MapProps) => {
 
   useEffect(() => {
     if (coord[0]) {
-      setCoordinates(coord);
+      if (coord[0] === -81.197354) {
+        console.log(Kyiv.current as [number, number]);
+        setCoordinates(Kyiv.current as [number, number]);
+      } else {
+        setCoordinates(coord);
+      }
     }
   }, [coord]);
 
   useEffect(() => {
     if (map) {
       map.setCenter(coordinates);
+      console.log(`coordinates ${coordinates}`);
       new mapboxgl.Marker({
         color: "#D8D8D8",
       })
